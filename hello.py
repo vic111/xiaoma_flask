@@ -1,4 +1,6 @@
 from flask import Flask
+from flask import render_template
+from flask import request
 
 app = Flask(__name__)
 
@@ -7,6 +9,14 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello World!!!!!!!!!!!!!'
 
+
+@app.route('/index')
+def index():
+    url_date = {
+        'site':request.args.get('chewei'),
+        'num':request.args.get('num')
+    }
+    return render_template("index.html",url_date = url_date)
 
 @app.route('/url/<int:post_id>')
 def url_fist(post_id):
