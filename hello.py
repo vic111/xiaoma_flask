@@ -10,13 +10,22 @@ def hello_world():
     return 'Hello World!!!!!!!!!!!!!'
 
 
-@app.route('/index')
+@app.route('/index',methods=['GET','POST'])
 def index():
-    url_date = {
-        'site':request.args.get('chewei'),
-        'num':request.args.get('num')
-    }
-    return render_template("index.html",url_date = url_date)
+    if request.method == 'POST':
+        url_date = {
+            'site':request.args.get('chewei'),
+            'num':request.args.get('num')
+        }
+        print(request.headers)
+        print(request.form)
+        return render_template("index.html", url_date=url_date)
+    else:
+        url_date = {
+            'site':request.args.get('chewei'),
+            'num':request.args.get('num')
+        }
+        return render_template("index.html",url_date = url_date)
 
 @app.route('/url/<int:post_id>')
 def url_fist(post_id):
